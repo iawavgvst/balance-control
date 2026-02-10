@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -44,5 +46,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * У пользователя может быть только 1 баланс
+     *
+     * @return HasOne
+     */
+    public function balance(): HasOne
+    {
+        return $this->hasOne(Balance::class);
+    }
+
+    /**
+     * Может быть много транзакций
+     *
+     * @return HasMany
+     */
+    public function transaction(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 }
