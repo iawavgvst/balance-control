@@ -142,7 +142,6 @@ class BalanceService
                 throw new Exception('Недостаточно средств для перевода.', 409);
             }
 
-            $toUser = User::findOrFail($toUserId);
             $toBalance = $toUser->balance()->firstOrCreate(
                 ['user_id' => $toUserId],
                 ['amount' => 0]
