@@ -1,59 +1,31 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## О проекте
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Проект написан на Laravel 12 с использованием Docker (Docker Compose). 
 
-## About Laravel
+Представляет собой приложение по управлению балансом пользователей. 
+Взаимодействие с приложением происходит через HTTP API (JSON-запросы и ответы).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Репозиторий в GitHub
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Для управления версиями кода максимально аккуратно и понятно используется модель Git Flow:
+- Ветка master: основная ветка,
+- Ветка develop: ветка разработки,
+- Ветки feature: ветки разработок по конкретным задачам.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Весь смерженный код проекта хранится в ветке develop (https://github.com/iawavgvst/balance-control/tree/develop). 
 
-## Learning Laravel
+## Установка и запуск
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- Надо сделать форк репозитория и потом склонировать его себе на компьютер с помощью команды git clone (SSH). 
+- После клонирования нужно зайти в папку с проектом и установить все зависимости с помощью composer install.
+- Используйте комарду php artisan key:generate для генерации ключа приложения.
+- Скопируйте файл .env.example и укажите внутри данные для подключения к базе данных (их можно найти в docker/docker-compose/yml в разделе pgsql).
+- Для запуска Docker необходимо выполнить следующие действия: 1) cd docker, 2) docker-compose up -d.
+- Пройдите в URL к локальному хосту (http://localhost:8066/).
+- Чтобы запустить миграции проекта, нужно выполнить внутри docker команду docker-compose exec php-fpm bash; после этого можно сделать php artisan migrate.
+- В проекте имеется посев тестовых пользователей, нужно выполнить команду php artisan migrate:fresh --seed.
+- Для запуска имеющихся тестов в проекте нужно выполнить команду php artisan test.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Дополнительно
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Примечание по Docker: из-за php.ini может возникнуть проблема запуска контейнеров; ничего страшного! Нужно будет выполнить команду docker-compose up -d (после cd docker) еще раз.
